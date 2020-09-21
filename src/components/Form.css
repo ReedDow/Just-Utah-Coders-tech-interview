@@ -1,0 +1,72 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    width: 500px;
+    margin: 60px;
+    font-size: 20px;
+    border: solid;
+  }
+  .header{
+    font-size: 40px;
+    padding: 40px;
+  
+  }
+  .name{
+    width: 100px;
+    padding-left: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .email{
+    padding-left: 40px;
+    width: 100px;
+  }
+  .birthdate{
+   padding: 40px;
+    width: 200px;
+  }
+  
+  input{
+    height: 30px;
+  }
+  .input1{
+    width: 400px;
+  }
+  .input2{
+    width: 400px;
+  }
+  .input3{
+    width: 400px;
+  }
+  
+  
+  .chk{
+    font-size: 25px;
+    padding-left: 40px;
+    padding-bottom: 20px;
+  }
+  
+  .clearbtn{
+    position: relative;
+    left: 250px;
+    top: 60px;
+    height: 40px;
+    width: 100px;
+    font-size: 25px;
+    /* padding-bottom: 20px; */
+    margin-bottom: 20px;
+  
+  }
+  
+  .submitbtn{
+    position: relative;
+    left: 360px;
+    height: 40px;
+    width: 100px;
+    font-size: 25px;
+    margin-bottom: 20px;
+    
+    
+  }
