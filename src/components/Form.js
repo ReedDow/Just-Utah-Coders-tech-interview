@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import '../components/Form.css';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
+import axios from 'axios';
 import { Alert } from 'react-alert';
 
 class Contactform extends Component {
-    constructor(props) {
+    constructor() {
         super();
         this.state = {
             name: '',
@@ -14,6 +15,7 @@ class Contactform extends Component {
         }
     }
 
+//event handlers
     handleInputName = (event) => {
         let keyword = event.target.value;
         this.setState({name: keyword})
@@ -32,15 +34,18 @@ class Contactform extends Component {
     handleCheckbox = (prevState) => {
         this.setState({ check: !prevState.check})
     }
+
     handleClear = () => {
         this.setState({
             name: '',
             email: '',
             birthdate: '',
-            toggleCheckbox: false,
+            check: false,
         })
         
     }
+
+//checks for presence and validity of email, presence of name, validity of birthdate, and checkbox agreement to be contacted via email.
     handleSubmit = (event) => {
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (this.state.name === '' || this.state.email === '' || this.state.check === false) {
@@ -49,7 +54,25 @@ class Contactform extends Component {
         if (!re.test(this.state.email)) {
             alert('Invalid Email')
         }
-        else { }
+        else {(axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users ', {
+                name: this.state.name,
+                email: this.state.email,
+                birthDate: this.state.birthdate,
+                emailConsent: this.state.check
+            }) 
+            .then((response) => {
+                console.log(response.status)
+            })
+            .catch((error) => {
+                console.log(error)
+            }))(alert('Success!'))(this.setState({
+                name: '',
+                email: '',
+                birthdate: '',
+                check: false,
+            })
+            )
+        }
         event.preventDefault()
     }
 
@@ -79,7 +102,7 @@ class Contactform extends Component {
                     <label>Birth date</label>
                     <input className='input3'
                         type='text'
-                        placeholder='Birth date'
+                        placeholder='YYYY-MM-DD'
                         onChange={(e) => this.handleInputBirthday(e)}
                     />
                 </Form.Field>
