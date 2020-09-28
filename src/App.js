@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import Contactform from './components/Form';
+import ContactForm from './components/ContactForm';
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class App extends Component {
   }
   render() {
     return(
-    <Contactform
+    <ContactForm
     />
     )
   }

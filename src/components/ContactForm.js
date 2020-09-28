@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../components/Form.css';
+import '../components/ContactForm.css';
 import { Button, Checkbox, Form } from 'semantic-ui-react';
 import axios from 'axios';
-import { Alert } from 'react-alert';
 
-class Contactform extends Component {
+
+class ContactForm extends Component {
     constructor() {
         super();
         this.state = {
@@ -17,18 +17,15 @@ class Contactform extends Component {
 
 //event handlers
     handleInputName = (event) => {
-        let keyword = event.target.value;
-        this.setState({name: keyword})
+        this.setState({name: event.target.value})
       };
 
     handleInputEmail = (event) => {
-        let keyword = event.target.value;
-        this.setState({email: keyword})
-    }
+        this.setState({email: event.target.value})
+    };
 
     handleInputBirthday = (event) => {
-        let keyword = event.target.value
-        this.setState({ birthdate: keyword })
+        this.setState({ birthdate: event.target.value})
     }
 
     handleCheckbox = (prevState) => {
@@ -45,15 +42,14 @@ class Contactform extends Component {
         
     }
 
-//checks for presence and validity of email, presence of name, validity of birthdate, and checkbox agreement to be contacted via email.
+//checks validity of email, validity of birthdate, and checkbox agreement to be contacted via email.
     handleSubmit = (event) => {
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (this.state.name === '' || this.state.email === '' || this.state.check === false) {
-            alert('Please Complete Form and Agree to be Contacted by Email')
-        }
+
         if (!re.test(this.state.email)) {
             alert('Invalid Email')
         }
+
         else {(axios.post('https://my-json-server.typicode.com/JustUtahCoders/interview-users-api/users ', {
                 name: this.state.name,
                 email: this.state.email,
@@ -65,7 +61,8 @@ class Contactform extends Component {
             })
             .catch((error) => {
                 console.log(error)
-            }))(alert('Success!'))(this.setState({
+            }))
+            (alert('Success!'))(this.setState({
                 name: '',
                 email: '',
                 birthdate: '',
@@ -86,16 +83,16 @@ class Contactform extends Component {
                     <label>Name</label>
                     <input className='input1'
                         type='text'
-                        placeholder='Name'
-                        onChange={(e) => this.handleInputName(e)}
+                        value = {this.state.name}
+                        onChange={this.handleInputName}
                     />
                 </Form.Field>
                 <Form.Field className='email'>
                     <label>Email</label>
                     <input className='input2'
                         type='text'
-                        placeholder='Email'
-                        onChange={(e) => this.handleInputEmail(e)}
+                        value = {this.state.email}
+                        onChange={this.handleInputEmail}
                     />
                 </Form.Field>
                 <Form.Field className='birthdate'>
@@ -103,7 +100,8 @@ class Contactform extends Component {
                     <input className='input3'
                         type='text'
                         placeholder='YYYY-MM-DD'
-                        onChange={(e) => this.handleInputBirthday(e)}
+                        value = {this.state.birthdate}
+                        onChange={this.handleInputBirthday}
                     />
                 </Form.Field>
                 <Form.Field>
@@ -113,9 +111,11 @@ class Contactform extends Component {
                 </Form.Field>
                 <Button className='clearbtn'
                     type='clear'
+                    value = {this.state.check}
                     onClick={this.handleClear}>Clear</Button>
                 <Button className='submitbtn'
                     type='submit'
+                    disabled = {!this.state.name, !this.state.email, !this.state.check}
                     onClick={(e => this.handleSubmit(e))}>Submit</Button>
             </Form>
         )
@@ -123,4 +123,4 @@ class Contactform extends Component {
 }
 
 
-export default Contactform
+export default ContactForm
